@@ -190,12 +190,16 @@ async function forgetPas(e){
 	}
 }
 
+var prof;
+
 	async function login(){
 		var ref = doc(db, "UsersList", nameBox.value);
 		var userName = nameBox.value;
 		var password = pasBox.value;
 
 		const docSnap = await getDoc(ref);
+		prof = docSnap.data().proffesion;
+		localStorage.setItem("Prof", prof);
 
 		if(docSnap.exists()){
 			if(password == docSnap.data().Password){

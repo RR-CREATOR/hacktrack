@@ -18,8 +18,9 @@ function logout(){
 
 room_name = localStorage.getItem("OpenedRep");
 user_name = localStorage.getItem("userName");
+proffession = localStorage.getItem("Prof");
 
-function message(){
+function messages(){
     firebase.database().ref("/").child(room_name).update({
         purpose: "adding room name"
     })
@@ -27,7 +28,8 @@ function message(){
           firebase.database().ref(room_name).push({
                 name:user_name,
                 message:msg,
-                like:0
+                like:0,
+                writtenBy: proffession
           });
 
           document.getElementById("msg").value = "";
@@ -41,11 +43,18 @@ function getData() { firebase.database().ref("/"+room_name).on('value', function
  console.log(message_data);
  name = message_data['name'];
  message = message_data['message'];
+ wrote = message_data['writtenBy'];
+ console.log(message);
  like = message_data['like'];
  name_with_tag = "<h4>" + name + "</h4>";
  like_button = "<button class='btn btn-warning' id=" + firebase_message_id + " value=" + like + " onclick='updateLike(this.id)'>";
- message_with_tag = "<h4 class='message_h4'>" + message + "</h4>";
  span_with_tag = "<span class='glyphicon glyphicon-thumbs-up'>Like: " + like + "</span></button><hr>";
+
+ if(wrote == "teacher"){
+    message_with_tag = "<h4 class='message_h4_bold'>" + message + "</h4>";
+} else{
+    message_with_tag = "<h4 class='message_h4'>" + message + "</h4>";
+}
 
  row = name_with_tag + message_with_tag + like_button + span_with_tag;
  document.getElementById("output").innerHTML += row;

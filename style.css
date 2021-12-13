@@ -101,6 +101,10 @@ background-image: linear-gradient(to right, #33a0f1, #1b85cc, #126b9e, #075783, 
 {
 	padding-left:5px;color:grey;
 }
+.message_h4_bold{
+	padding-left:5px;color:black;
+	font-weight: 800;
+}
 .copy_right_footer
 {
 	font-weight: bold;

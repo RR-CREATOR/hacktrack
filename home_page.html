@@ -76,7 +76,7 @@
 	var repName;
 	var roomNames = [];
 
-	const querySnapshot = await getDocs(collection(db, user_name));
+	const querySnapshot = await getDocs(collection(db, "questions"));
     querySnapshot.forEach((doc) => {
     roomNames.push(doc.id);
 });
@@ -92,8 +92,6 @@ for (i; i < numberRooms; i++){
 	document.getElementById("output").innerHTML += row;
 }
 
-
-
 	async function logout(){
 		localStorage.removeItem("userName");
 		localStorage.removeItem("OpenedRep")
@@ -101,12 +99,13 @@ for (i; i < numberRooms; i++){
 	}
 
 	async function addRoom(){
-		var ref = doc(db, user_name, repBox.value);
+		var ref = doc(db, "questions", repBox.value);
 
 	const docRef = await setDoc(
 		ref, {
 			RepCardName: repBox.value,
-			dataAdded: false
+			dataAdded: false,
+			askedBy: user_name
 		}
 	)
 
@@ -119,7 +118,7 @@ for (i; i < numberRooms; i++){
 	}
 
 	async function GetName(){
-		var ref = doc(db, user_name, repBox.value);
+		var ref = doc(db, "questions", repBox.value);
 
 		const docSnap = await getDoc(ref);
 		repName = docSnap.data().RepCardName;
