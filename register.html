@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Reports For U</title>
+<link href="https://fonts.googleapis.com/css?family=Yeon+Sung&display=swap" rel="stylesheet"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<center>
+	<h1 class="header">	
+		Register
+</h1>
+	<div class="col-lg-4 col-md-6 col-sm-6 col-xs-11 login_div">
+		<h3 style="margin-top: 10px;">Register</h3>
+		<h4 >Please fill in the following details. All boxes are compulsory</h4>
+		<div class="form-group">
+		  <label >User Name:</label>
+		  <input type="text" id="user_name" class="form-control" placeholder="User Name">
+		  <label >Password:</label>
+		  <input type="text" id="password" class="form-control" placeholder="Password">
+		  <label >E-Mail ID:</label>
+		  <input type="text" id="email" class="form-control" placeholder="E-Mail ID">
+		  <br>
+		  <button id="student">STUDENT</button>
+		  <button id="teacher">TEACHER</button>
+		</div>
+		<button id="register_button" class="btn btn-primary" style="margin-top: 10px;">Click here to register</button>
+		<br><br>
+	</div>
+</center>
+
+<script type="module">
+	// Import the functions you need from the SDKs you need
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/9.3.0/firebase-app.js";
+	// TODO: Add SDKs for Firebase products that you want to use
+	// https://firebase.google.com/docs/web/setup#available-libraries
+  
+	// Your web app's Firebase configuration
+	const firebaseConfig = {
+	  apiKey: "AIzaSyCiCjNo7h8SBeIpy54_x5Fp9K4u2rYU68o",
+	  authDomain: "repcard-68a86.firebaseapp.com",
+	  projectId: "repcard-68a86",
+	  storageBucket: "repcard-68a86.appspot.com",
+	  messagingSenderId: "268606048540",
+	  appId: "1:268606048540:web:9fc7a08a01bc124f2e92d9"
+	};
+  
+	// Initialize Firebase
+	const app = initializeApp(firebaseConfig);
+
+	import{
+		getFirestore, doc, getDoc, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField
+	}
+	from "https://www.gstatic.com/firebasejs/9.3.0/firebase-firestore.js";
+
+	const db = getFirestore();
+
+	//CODE MAIN//
+
+	let nameBox = document.getElementById("user_name");
+	let pasBox = document.getElementById("password");
+	var person = "student";
+
+	let regBtn = document.getElementById("register_button");
+	let email = document.getElementById("email");
+	let teacher = document.getElementById("teacher");
+	let student = document.getElementById("student");
+	var selectf = false;
+	teacher.addEventListener("click", select);
+	student.addEventListener("click", select);
+
+	async function select(){
+		if(selectf == false && person == "student"){
+			teacher.style.backgroundColor = '#075783';
+			selectf = true;
+			student.style.backgroundColor = '#33a0f1';
+			person = "teacher";
+		} else if(selectf == true && person == "teacher"){
+			student.style.backgroundColor = '#075783'
+			selectf = false;
+			teacher.style.backgroundColor = '#33a0f1';
+			person = "student";
+		}
+	}
+
+	async function AddDocument_CustomID(){
+		var ref = doc(db, "UsersList", nameBox.value);
+
+		if(nameBox.value == ""){
+			alert("Please enter a user name");
+		}else if(nameBox.value != "" && pasBox.value == ""){
+			alert("Please enter a password");
+		} else if(nameBox.value != "" && pasBox.value != "" && email.value == ""){
+			alert("Please enter an email ID");
+		} else{
+			const docRef = await setDoc(
+		ref, {
+			UserName: nameBox.value,
+			Password: pasBox.value,
+			emailID: email.value,
+			proffesion: person
+		}
+	)
+	.then(()=>{
+		alert("User Registered");
+		setTimeout(() => {
+			window.location = "index.html";
+		}, 1000);
+	})
+	.catch((error)=>{
+		alert("Unsuccessful, error: " + error);
+	})
+		}
+
+	}
+
+	async function CheckDoc(){
+		var ref = doc(db, "UsersList", nameBox.value);
+
+		const docSnap = await getDoc(ref);
+
+		if(docSnap.exists()){
+			alert("User already exists");
+		} else{
+			AddDocument_CustomID();
+		}
+	}
+
+	regBtn.addEventListener("click", CheckDoc);
+  </script>
+
+</body>
+</html>

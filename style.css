@@ -1,0 +1,150 @@
+html, body
+{
+  height: 100%;
+  margin: 0;
+}
+
+body
+{
+background-image: linear-gradient(to right, #33a0f1, #1b85cc, #126b9e, #075783, #01496b);
+}
+
+.header
+{
+	color: white;font-family: 'Yeon Sung';font-size: 36px;letter-spacing: 10px;margin-top: 80px;
+	margin-bottom: 20px;
+}
+.header img
+{
+	width: 80px;margin-left: -15px;
+}
+
+.login_div
+{
+	background: rgba(255,255,255,0.8);float: none;border-radius: 15px;
+}
+
+.logo
+{
+	width: 80px;margin-top: 30px;border-radius: 40px;
+}
+
+#login_button, #register_button, #changePas, #forgotPas
+{
+	width: 80%;border-radius: 15px;
+}
+
+.room_name
+{
+	cursor: pointer;
+	font-size: 20px;
+	display: inline-block;
+	text-align: left;
+}
+
+
+#logout
+{
+	font-size: 20px; float: right;
+	margin-top: 10px;
+	margin-right: 10px;
+}
+
+
+#output
+{
+	padding: 10px; width:80%;background: rgba(255,255,255,0.8);border-radius: 15px;
+}
+
+.input_div_room_page
+{
+	width: 80%;
+}
+
+.input_div label
+{
+	color: white;font-size: 20px;
+}
+
+
+#save, #delete
+{
+    width: 50%;
+	font-weight: bolder;
+	font-size: 18px;
+	font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	letter-spacing: 2px;
+}
+.input_div_message_page label
+{
+	color: black;
+}
+.input_div_message_page #msg
+{
+	width: 80%;
+}
+.input_div_message_page button
+{
+	margin-top: 15px;
+	width: 50%; 
+}
+.color_white
+{
+	color: white
+}
+
+.user_tick
+{
+	width:20px;
+}
+.message_h4
+{
+	padding-left:5px;color:grey;
+}
+.copy_right_footer
+{
+	font-weight: bold;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 15px;
+	position: fixed;
+    color: white;
+    bottom: 0;
+    width: 100%;
+    background-color: grey;
+    line-height: 3;
+    text-align: center;
+}
+.subject{
+	bottom: 0px;width: 31%;background: rgba(255,255,255,0.8);
+	border-radius: 20px;
+	margin-bottom: 20px;
+	display: inline-block;
+}
+
+.marks{
+	width: 40%;
+	margin-top: 7px;
+	margin-bottom: 10px;
+}
+
+#save{
+	width: 100%;
+}
+
+#home{
+	font-size: 20px; float: left;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+#teacher{
+	background-color: #33a0f1;
+}
+
+#student{
+	background-color: #075783;
+}
+
+.input_div_message_page
+{
+	position: fixed;bottom: 0px;width: 100%;background: rgba(255,255,255,0.8);
+}
