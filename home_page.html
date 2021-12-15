@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-	<title>name</title>
+	<title>BrainChat</title>
 <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
@@ -13,30 +13,44 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="main.css">
 <script src="try.js"></script>
 </head>
 <body>
-<button id="logout" class="glyphicon glyphicon-log-out btn btn-danger" onclick="logout();">Logout</button>
+<div>
+<button id="logout" class="glyphicon glyphicon-log-out btn btn-danger" onclick="logout();"></button>
+<center>
 <div class="container">
-	<center>
-		<h1 class="header">	
-			QUESTIONS	
-		</h1>
-		<h3 id="user_name" class="color_white"></h3>
-		<div class="form-group input_div_room_page">
-			<label style="margin-bottom: 6px;">Add Question:</label>
-			<input type="text" id="room_name" class="form-control" placeholder="Question Title">
+	
+
+		<label style="margin-bottom: 6px;font-size: larger;margin-top: 20px;">Ask a Question:</label>
+	<div class="hold">
+		<div class="wrap-input100">
+			<input type="text" id="room_name" class="input100" placeholder="Question Title">
+			<span class="focus-input100"></span>
 		</div>
-		<br>
-		<button id="roomButton" class="btn btn-success">Create</button>
-		<h3 class="color_white">#Questions</h3>
-	<div id="output"></div>
+		
+		<button id="roomButton" class="btn btn-success">Ask</button>
+	</div>
+	<center>
+
+	<div id="output">		
+		<div id="stars">
+		<svg width="25" height="25" viewBox="0 0 24 24" ><path d="m12 16.618-4.944 2.599L8 13.71 4 9.812l5.528-.803L12 4l2.472 5.01L20 9.811l-4 3.9.944 5.505z" class="star" stroke="#666" stroke-width="1.5" fill="none" stroke-linejoin="round"></path></svg>
+		</div>
+		<h4 style="margin-top: -27px;margin-left: 30px;color: black;">	
+		Questions for you</h4>
+		<hr>
+	</div>
 	</center>
 </div>
-<div class="copy_right_footer"><p>Note: Click on the title of the question to open it.</p></div>
+</center>
+</div>
 <script type="module">
 	// Import the functions you need from the SDKs you need
+	var r = '';
+	var newStr = '';
 	import { initializeApp } from "https://www.gstatic.com/firebasejs/9.3.0/firebase-app.js";
 	// TODO: Add SDKs for Firebase products that you want to use
 	// https://firebase.google.com/docs/web/setup#available-libraries
@@ -64,7 +78,7 @@
 	//CODE MAIN//
 
 	var user_name = localStorage.getItem("userName");
-	document.getElementById("user_name").innerHTML = "Welcome " + user_name + "!";
+	//document.getElementById("user_name").innerHTML = "Welcome " + user_name + "!";
 
 	let repBox = document.getElementById("room_name");
 	let addBtn = document.getElementById("roomButton");
@@ -88,9 +102,13 @@ console.log(numberRooms);
 var i = 0;
 
 for (i; i < numberRooms; i++){
-			console.log(i);
-	row = "<div class='room_name' id='" + roomNames[i] + "' onclick='redirectToRoomName(this.id)'>" + roomNames[i] + "</div><hr>";
+			
+	var str = roomNames[i]
+	 newStr = str.replace(/ /g, "-");
+	 console.log(newStr)
+	row = "<div class='room_name' ><h4 class='questions'>" + roomNames[i] + "</h4></div><br><div class='answer'id=" + newStr + " onclick=redirectToRoomName(this.id)><img src='answer.png' class='answerimage'><p class='answertext'>Answer</p></div><hr>";
 	document.getElementById("output").innerHTML += row;
+	
 }
 
 	async function logout(){
@@ -123,16 +141,17 @@ for (i; i < numberRooms; i++){
 
 		const docSnap = await getDoc(ref);
 		repName = docSnap.data().RepCardName;
-
+		console.log("Names"+repName)
 		if(docSnap.exists()){
 			roomCreate();
 		}
 	}
 
 	async function roomCreate(){
-	row = "<div class='room_name' id=" + repName + " onclick='redirectToRoomName(this.id)' >" + repName + "</div><hr>";
+	row = "<div class='room_name' >" + repName + "</div><br><div class='answer'id=" + newStr + " onclick='redirectToRoomName(this.id)'><p class='answertext'>Answer</p></div><hr>";
+	
 	document.getElementById("output").innerHTML += row;
-	repBox.value = "";
+	window.location.reload()
 	}
 
 	addBtn.addEventListener("click", addRoom);

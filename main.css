@@ -436,6 +436,11 @@ iframe {
 .login100-form-btn:hover:before {
   opacity: 1;
 }
+.questions{
+  font-family:Montserrat-Medium;
+  color: black;
+  font-size: 30;
+}
 
 
 /*------------------------------------------------------------------

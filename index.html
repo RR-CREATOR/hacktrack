@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>name</title>
+	<title>BrainChat</title>
 <link href="https://fonts.googleapis.com/css?family=Yeon+Sung&display=swap" rel="stylesheet"><meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -24,8 +24,8 @@
 <!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="util.css">
+	<link rel="stylesheet" type="text/css" href="main.css">
 
 </head>
 <body>
@@ -74,6 +74,8 @@
 						<a href="register.html">
 							Sign up now
 						</a>
+						<br>
+						<img src="https://cdn.discordapp.com/attachments/918077642668912650/920705244474777650/unknown.png" style="width: 300px; height: 100px;">
 					</div>
 				</form>
 			</div>
@@ -237,12 +239,16 @@ async function forgetPas(e){
 	}
 }
 
-	async function login(){
+	async function login(e){
+		e.preventDefault();
 		var ref = doc(db, "UsersList", nameBox.value);
 		var userName = nameBox.value;
 		var password = pasBox.value;
 
 		const docSnap = await getDoc(ref);
+
+		var proffession = docSnap.data().proffesion;
+		localStorage.setItem("Prof", proffession);
 
 		if(docSnap.exists()){
 			if(password == docSnap.data().Password){

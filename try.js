@@ -11,8 +11,9 @@ const firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
 
 function redirectToRoomName(name){
-	console.log(name);
-	localStorage.setItem("OpenedRep", name);
+	console.log("Name is"+name);
+    var newstr = name.replace(/-/g, " ");
+	localStorage.setItem("OpenedRep", newstr);
 	console.log("Success");
 	window.location = "question.html";
 }
